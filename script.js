@@ -14,6 +14,7 @@ calcContainer.append(calcDisplay, calcBtnContainer);
 let btnContent = [];
 let topBtns = [0, 1, 2, 3, 4, 5, 6, 7];
 let sideBtns = [11, 15, 19];
+let sideBtnContent = ['-', '+', '='];
 
 for (i = 1; 20 >= i; i++) {
     const btn = document.createElement('div');
@@ -30,8 +31,10 @@ for (let i = 0; 8 > i; i++) {
 // Sets background for the right side Calculator Buttons
 for (let i = 0; 3 > i; i++) {
     if (i < 2) {
-    btnSelect[sideBtns[i]].style.backgroundColor = '#F8F8FF';
+        btnSelect[sideBtns[i]].style.backgroundColor = '#F8F8FF';
     } else {
-    btnSelect[sideBtns[i]].style.backgroundColor = '#FFB6C1';
+        btnSelect[sideBtns[i]].style.backgroundColor = '#FFB6C1';
     }
+// Setting the innerText of side buttons.. Or the content.
+    btnSelect[sideBtns[i]].innerText = sideBtnContent[i]
 };
