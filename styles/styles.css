@@ -1,0 +1,40 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.display {
+    display: flex;
+    width: 360px;
+    height: 100px;
+    border: solid 2px rgb(68, 180, 68);
+    margin: 24px 18px 10px;
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    flex: 0;
+    border: solid 2px cornflowerblue;
+    width: 400px;
+    height: 600px;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    flex: auto;
+    border: solid 2px rgb(255, 181, 44);
+    margin: 24px 18px;
+}
+
+.calcBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    flex: auto;
+    border: solid 1px rgb(71, 71, 71);
+}
