@@ -5,6 +5,14 @@ body {
     height: 100vh;
 }
 
+.operator {
+    background-color: #F8F8FF;
+}
+
+.equals {
+    background-color: #FFB6C1;
+}
+
 .display {
     display: flex;
     width: 360px;

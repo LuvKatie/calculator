@@ -11,7 +11,6 @@ calcBtnContainer.classList.add('buttons');
 page.append(calcContainer);
 calcContainer.append(calcDisplay, calcBtnContainer);
 
-let btnContent = [];
 let topBtns = [0, 1, 2, 3, 4, 5, 6, 7];
 let sideBtns = [11, 15, 19];
 let sideBtnContent = ['-', '+', '='];
@@ -24,17 +23,20 @@ for (i = 1; 20 >= i; i++) {
 
 const btnSelect = document.querySelectorAll('.calcBtn');
 
-// Sets a background color to first 8 divs within the Calculator Buttons
+// Assigning classes to top section of operators
 for (let i = 0; 8 > i; i++) {
-    btnSelect[topBtns[i]].style.backgroundColor = '#F8F8FF';
+    btnSelect[topBtns[i]].classList.add('operator');
 };
-// Sets background for the right side Calculator Buttons
+
+// Assigning classes to side operator buttons, and a separate one for the Equals button
 for (let i = 0; 3 > i; i++) {
     if (i < 2) {
-        btnSelect[sideBtns[i]].style.backgroundColor = '#F8F8FF';
+        btnSelect[sideBtns[i]].classList.add('operator');
     } else {
-        btnSelect[sideBtns[i]].style.backgroundColor = '#FFB6C1';
+        btnSelect[sideBtns[i]].classList.add('equals');
     }
-// Setting the innerText of side buttons.. Or the content.
+
+
+// Setting the innerText of side buttons or the content.
     btnSelect[sideBtns[i]].innerText = sideBtnContent[i]
 };
