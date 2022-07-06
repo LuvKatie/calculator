@@ -11,32 +11,61 @@ calcBtnContainer.classList.add('buttons');
 page.append(calcContainer);
 calcContainer.append(calcDisplay, calcBtnContainer);
 
-let topBtns = [0, 1, 2, 3, 4, 5, 6, 7];
-let sideBtns = [11, 15, 19];
-let sideBtnContent = ['-', '+', '='];
+let negPosPeriod = [16, 18];
+let negPPContent = ['- / +', '.'];
 
+let nums = [4, 5, 6, 8, 9, 10, 12, 13, 14, 17];
+let numsContent = [];
+
+// Loop to iterate 10 numbers into empty array numsContent
+for (i = 1; i <= 10; i++) {
+    (i == 10) ? numsContent.push('0') : numsContent.push(`${i}`);
+}
+
+let opBtns = {
+    sideBtns: [11, 15, 19],
+    topBtns: [0, 1, 2, 3, 7],
+}
+
+let opContent = {
+    sideContent: ['-', '+', '='],
+    topContent: ['%', 'C', '<-', '/', 'x'],
+}
+
+// Create 4x5 grid square for Calculator buttons
 for (i = 1; 20 >= i; i++) {
     const btn = document.createElement('div');
     btn.classList.add('calcBtn', `${i}`);
     calcBtnContainer.append(btn);
 }
-
 const btnSelect = document.querySelectorAll('.calcBtn');
 
-// Assigning classes to top section of operators
-for (let i = 0; 8 > i; i++) {
-    btnSelect[topBtns[i]].classList.add('operator');
-};
+// Assigning classes to the operator buttons
+function operatorClass(btnClasses) {
+    for (let key in btnClasses) {
+        for (let i = 0; btnClasses[key].length > i; i++) {
 
-// Assigning classes to side operator buttons, and a separate one for the Equals button
-for (let i = 0; 3 > i; i++) {
-    if (i < 2) {
-        btnSelect[sideBtns[i]].classList.add('operator');
-    } else {
-        btnSelect[sideBtns[i]].classList.add('equals');
+            if (btnClasses[key][i] == 19) {
+                btnSelect[btnClasses[key][i]].classList.add('equals');
+            }
+
+            btnSelect[btnClasses[key][i]].classList.add('operator');
+        }
     }
+}
 
+// Assigning content to operator buttons
+function operatorContent (btnClasses, btnContent) {
+    for (let key in btnClasses) {
+        if (btnClasses[key] == btnClasses.sideBtns) {
+            for (i = 0; btnClasses[key].length > i; i++)
+                btnSelect[btnClasses[key][i]].innerText = btnContent.sideContent[i];
+        } else { // Top content
+            for (i = 0; btnClasses[key].length > i; i++)
+                btnSelect[btnClasses[key][i]].innerText = btnContent.topContent[i];
+        }
+    }
+}
 
-// Setting the innerText of side buttons or the content.
-    btnSelect[sideBtns[i]].innerText = sideBtnContent[i]
-};
+operatorClass(opBtns);
+operatorContent(opBtns, opContent);
