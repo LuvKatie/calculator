@@ -64,7 +64,13 @@ function oneOperatorCheck(op) {
 // Checks if button click belongs in the number display
 function numberCheck(num) {
     const classNames = ['number', 'decimal'];
-    classNames.some(className => num.classList.contains(className)) ? currNum.innerText += num.innerText : console.log('negative positive');
+    classNames.some(className => num.classList.contains(className)) ? () => {
+        if(currNum.innerText == '0') {
+            currNum.innerText = num.innerText
+        } else {
+            currNum.innerText += num.innerText
+        };
+    } : console.log('negative positive');
 };
 
 function numberClassContent(number, content) {
