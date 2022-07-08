@@ -45,6 +45,12 @@ operatorClass(opBtns);
 operatorContent(opBtns, opContent);
 numberClassContent(nums, numsContent);
 
+const negativePositive = document.querySelector('.negPos');
+
+// Array to store numbers to operate on
+let operation = [];
+let currOperators = [];
+
 btnSelect.forEach(btn => btn.addEventListener('click', () => {
     (btn.className.includes('operator')) ? oneOperatorCheck(btn) : currNum.innerText += btn.innerText;
 }));
@@ -52,8 +58,6 @@ btnSelect.forEach(btn => btn.addEventListener('click', () => {
 function oneOperatorCheck(op) {
         if (currOp.innerText == '') {
             currOp.innerText = op.innerText;
-        } else {
-            return;
         }
 };
 
@@ -76,9 +80,13 @@ function operatorClass(btnClasses) {
             
             if (btnClasses[key][i] == 19) {
                 btnSelect[btnClasses[key][i]].classList.add('equals');
+            } else if (btnClasses[key][i] == 18) {
+                btnSelect[btnClasses[key][i]].classList.add('decimal');
+            } else if (btnClasses[key][i] == 16) {
+                btnSelect[btnClasses[key][i]].classList.add('negPos');
+            } else {
+                btnSelect[btnClasses[key][i]].classList.add('operator');
             }
-
-            btnSelect[btnClasses[key][i]].classList.add('operator');
         }
     }
 }
