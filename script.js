@@ -52,13 +52,19 @@ let operation = [];
 let currOperators = [];
 
 btnSelect.forEach(btn => btn.addEventListener('click', () => {
-    (btn.className.includes('operator')) ? oneOperatorCheck(btn) : currNum.innerText += btn.innerText;
+    btn.className.includes('operator') ? oneOperatorCheck(btn) : numberCheck(btn);
 }));
 
 function oneOperatorCheck(op) {
         if (currOp.innerText == '') {
             currOp.innerText = op.innerText;
         }
+};
+
+// Checks if button click belongs in the number display
+function numberCheck(num) {
+    const classNames = ['number', 'decimal'];
+    classNames.some(className => num.classList.contains(className)) ? currNum.innerText += num.innerText : console.log('negative positive');
 };
 
 function numberClassContent(number, content) {
