@@ -71,8 +71,12 @@ function numberCheck(num) {
 function numPopulate(num) {
     if(currNum.innerText == '0') {
         currNum.innerText = num.innerText
-    } else {
+    } else if (currOp.innerText == '') {
         currNum.innerText += num.innerText
+    } else {
+        operation.push(currNum.innerText);
+        currOperators.push(currOp.innerText);
+        softClear(num);
     }
 }
 
@@ -80,11 +84,16 @@ function checkOP(value) {
         value.innerText == 'C' ? clear() : numberNegPos();
 }
 
+function softClear(value) {
+        currOp.innerText = '';
+        currNum.innerText = value.innerText;
+}
+
 function clear() {
         operation = [];
         currOperators = [];
         currNum.innerText = '0';
-        currOP.innerText = '';
+        currOp.innerText = '';
 }
 
 function numberNegPos() {
