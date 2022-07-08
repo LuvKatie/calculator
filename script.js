@@ -65,7 +65,7 @@ function oneOperatorCheck(op) {
 
 function numberCheck(num) {
     const classNames = ['number', 'decimal'];
-    classNames.some(className => num.classList.contains(className)) ? numPopulate(num) : numberNegPos();
+    classNames.some(className => num.classList.contains(className)) ? numPopulate(num) : checkOP(num);
 }
 
 function numPopulate(num) {
@@ -74,6 +74,17 @@ function numPopulate(num) {
     } else {
         currNum.innerText += num.innerText
     }
+}
+
+function checkOP(value) {
+        value.innerText == 'C' ? clear() : numberNegPos();
+}
+
+function clear() {
+        operation = [];
+        currOperators = [];
+        currNum.innerText = '0';
+        currOP.innerText = '';
 }
 
 function numberNegPos() {
@@ -103,7 +114,6 @@ function numberClassContent(number, content) {
 function operatorClass(btnClasses) {
     for (let key in btnClasses) {
         for (let i = 0; btnClasses[key].length > i; i++) {
-            
             if (btnClasses[key][i] == 19) {
                 btnSelect[btnClasses[key][i]].classList.add('equals');
             } else if (btnClasses[key][i] == 18) {
