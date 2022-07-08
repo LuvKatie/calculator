@@ -15,10 +15,28 @@ body {
 
 .display {
     display: flex;
+    flex-direction: column;
     width: 360px;
     height: 100px;
     border: solid 2px rgb(68, 180, 68);
     margin: 24px 18px 10px;
+}
+
+.currOperator {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 600;
+    font-size: 24px;
+    padding-right: 8px;
+}
+
+.currNumber {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-size: 40px;
+    padding: 0px 10px 12px 0px;
 }
 
 .calculator {
