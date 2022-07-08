@@ -37,9 +37,12 @@ for (i = 1; 20 >= i; i++) {
     btn.classList.add('calcBtn', `${i}`);
     calcBtnContainer.append(btn);
 }
+
 const btnSelect = document.querySelectorAll('.calcBtn');
 const currNum = document.querySelector('.currNumber');
 const currOp = document.querySelector('.currOperator');
+
+currNum.innerText = '0';
 
 operatorClass(opBtns);
 operatorContent(opBtns, opContent);
@@ -47,31 +50,42 @@ numberClassContent(nums, numsContent);
 
 const negativePositive = document.querySelector('.negPos');
 
-// Array to store numbers to operate on
 let operation = [];
 let currOperators = [];
 
 btnSelect.forEach(btn => btn.addEventListener('click', () => {
     btn.className.includes('operator') ? oneOperatorCheck(btn) : numberCheck(btn);
-}));
+}))
 
 function oneOperatorCheck(op) {
         if (currOp.innerText == '') {
             currOp.innerText = op.innerText;
         }
-};
+}
 
-// Checks if button click belongs in the number display
 function numberCheck(num) {
     const classNames = ['number', 'decimal'];
-    classNames.some(className => num.classList.contains(className)) ? () => {
-        if(currNum.innerText == '0') {
-            currNum.innerText = num.innerText
+    classNames.some(className => num.classList.contains(className)) ? numPopulate(num) : numberNegPos();
+}
+
+function numPopulate(num) {
+    if(currNum.innerText == '0') {
+        currNum.innerText = num.innerText
+    } else {
+        currNum.innerText += num.innerText
+    }
+}
+
+function numberNegPos() {
+        let str = currNum.innerText;
+        if (str.charAt(0) != '-') {
+            let neg = '-' + str;
+            currNum.innerText = neg;
         } else {
-            currNum.innerText += num.innerText
-        };
-    } : console.log('negative positive');
-};
+            let pos = str.slice(1);
+            currNum.innerText = pos;
+        }
+}
 
 function numberClassContent(number, content) {
     // Loop to iterate 10 numbers into empty array numsContent
@@ -96,6 +110,8 @@ function operatorClass(btnClasses) {
                 btnSelect[btnClasses[key][i]].classList.add('decimal');
             } else if (btnClasses[key][i] == 16) {
                 btnSelect[btnClasses[key][i]].classList.add('negPos');
+            } else if (btnClasses[key][i] == 1) {
+                btnSelect[btnClasses[key][i]].classList.add('clear');
             } else {
                 btnSelect[btnClasses[key][i]].classList.add('operator');
             }

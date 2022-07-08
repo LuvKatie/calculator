@@ -5,7 +5,8 @@ body {
     height: 100vh;
 }
 
-.operator {
+.operator, 
+.clear {
     background-color: #F8F8FF;
 }
 
