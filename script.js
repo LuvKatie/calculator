@@ -27,7 +27,7 @@ let opBtns = {
 
 let opContent = {
     sideContent: ['-', '+', '='],
-    topContent: ['%', 'C', '<-', '/', 'x'],
+    topContent: ['%', 'C', '<-', '/', '*'],
     negPosPeriod: ['-/+', '.'],
 }
 
@@ -52,14 +52,32 @@ const negativePositive = document.querySelector('.negPos');
 
 let operation = [];
 let currOperators = [];
+let total = 0;
 
 btnSelect.forEach(btn => btn.addEventListener('click', () => {
-    btn.className.includes('operator') ? oneOperatorCheck(btn) : numberCheck(btn);
+    btn.className.includes('operator') ? operatorFNC(btn) : numberCheck(btn);
 }))
 
-function oneOperatorCheck(op) {
-        if (currOp.innerText == '') {
+
+function operate(currValue) {
+        if (operation.length == 2 && currOperators[0]) {
+            console.log(`${parseInt(operation[0])} ${currOperators[0]} ${parseInt(operation[1])}`);
+            currOperators[0] = currValue.innerText;
+        }
+}
+
+function operatorFNC(op) {
+        if (!(operation[0])) {
+            operation.push(currNum.innerText);
+            currNum.innerText = '';
+        }
+
+        if (currOp.innerText == '' && !(currOperators[0])) {
             currOp.innerText = op.innerText;
+            currOperators.push(op.innerText);
+        } else {
+            operation.push(currNum.innerText);
+            // operate(op);
         }
 }
 
@@ -68,15 +86,14 @@ function numberCheck(num) {
     classNames.some(className => num.classList.contains(className)) ? numPopulate(num) : checkOP(num);
 }
 
+// Populates number display and continues the operation if an operator was called upon current number
 function numPopulate(num) {
-    if(currNum.innerText == '0') {
+    if (currNum.innerText == '0') {
         currNum.innerText = num.innerText
-    } else if (currOp.innerText == '') {
-        currNum.innerText += num.innerText
+    } else if (!(currOperators[0])) {
+        currNum.innerText += num.innerText;
     } else {
-        operation.push(currNum.innerText);
-        currOperators.push(currOp.innerText);
-        softClear(num);
+        currNum.innerText += num.innerText
     }
 }
 
