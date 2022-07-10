@@ -61,7 +61,7 @@ btnSelect.forEach(btn => btn.addEventListener('click', () => {
 
 function operate(currValue) {
         if (operation.length == 2 && currOperators[0]) {
-            console.log(`${parseInt(operation[0])} ${currOperators[0]} ${parseInt(operation[1])}`);
+            console.log(parseInt(operation[0]) + currOperators[0] + parseInt(operation[1]));
             currOperators[0] = currValue.innerText;
         }
 }
@@ -77,7 +77,7 @@ function operatorFNC(op) {
             currOperators.push(op.innerText);
         } else {
             operation.push(currNum.innerText);
-            // operate(op);
+            operate(op);
         }
 }
 
