@@ -6,7 +6,8 @@ body {
 }
 
 .operator, 
-.clear {
+.clear,
+.back {
     background-color: #F8F8FF;
 }
 

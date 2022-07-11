@@ -58,20 +58,29 @@ btnSelect.forEach(btn => btn.addEventListener('click', () => {
     btn.className.includes('operator') ? operatorFNC(btn) : numberCheck(btn);
 }))
 
+const performMath = {
+    '+': (x, y) => x + y,
+    '-': (x, y) => x - y,
+    '*': (x, y) => x * y,
+    '/': (x, y) => x / y,
+    '%': (x, y) => x % y,
+}
 
 function operate(currValue) {
         if (operation.length == 2 && currOperators[0]) {
-            console.log(parseInt(operation[0]) + currOperators[0] + parseInt(operation[1]));
+            console.log(performMath[currOperators[0]](operation[0], operation[1]));
             currOperators[0] = currValue.innerText;
+            currOp.innerText = currOperators[0];
         }
 }
 
 function operatorFNC(op) {
+    // Store number value and reset display for next number
         if (!(operation[0])) {
             operation.push(currNum.innerText);
             currNum.innerText = '';
         }
-
+    // Assign operator to display and also store same operator
         if (currOp.innerText == '' && !(currOperators[0])) {
             currOp.innerText = op.innerText;
             currOperators.push(op.innerText);
@@ -98,7 +107,13 @@ function numPopulate(num) {
 }
 
 function checkOP(value) {
-        value.innerText == 'C' ? clear() : numberNegPos();
+        if (value.innerText == 'C') {
+            clear()
+        } else if (value.innerText == '<-') {
+            backspace();
+        } else {
+            numberNegPos();
+        }
 }
 
 function softClear(value) {
@@ -124,6 +139,12 @@ function numberNegPos() {
         }
 }
 
+function backspace() {
+    let currValue = currNum.innerText;
+    currNum.innerText = currValue.slice(-currValue.length, -1);
+
+}
+
 function numberClassContent(number, content) {
     // Loop to iterate 10 numbers into empty array numsContent
     for (i = 1; i <= 10; i++) {
@@ -146,6 +167,8 @@ function operatorClass(btnClasses) {
                 btnSelect[btnClasses[key][i]].classList.add('decimal');
             } else if (btnClasses[key][i] == 16) {
                 btnSelect[btnClasses[key][i]].classList.add('negPos');
+            } else if (btnClasses[key][i] == 2) {
+                btnSelect[btnClasses[key][i]].classList.add('back');
             } else if (btnClasses[key][i] == 1) {
                 btnSelect[btnClasses[key][i]].classList.add('clear');
             } else {
