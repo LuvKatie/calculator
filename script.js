@@ -53,6 +53,7 @@ const negativePositive = document.querySelector('.negPos');
 let operation = [];
 let currOperators = [];
 let total = 0;
+let next = 0;
 
 btnSelect.forEach(btn => btn.addEventListener('click', () => {
     btn.className.includes('operator') ? operatorFNC(btn) : numberCheck(btn);
@@ -76,6 +77,7 @@ function operateEval(value) {
 
     currNum.innerText = total;
     operation = [];
+    next = 0;
 } 
 
 function operate(currValue) {
@@ -128,9 +130,16 @@ function numberCheck(num) {
     classNames.some(className => num.classList.contains(className)) ? numPopulate(num) : checkOP(num);
 }
 
+function nextNumber(num) {
+    currNum.innerText = num.innerText;
+    next = 1;
+}
+
 // Populates number display and continues the operation if an operator was called upon current number
 function numPopulate(num) {
     if (currNum.innerText == 'Nice try; not today!') {
+        return;
+    } else if (total > 0 && !(currOperators[0])) {
         return;
     }
 
@@ -144,8 +153,8 @@ function numPopulate(num) {
         currNum.innerText += num.innerText;
     } else if (total == 0) {
         currNum.innerText += num.innerText
-    } else if (total > 0 || total < 0 && currOperators[0]) {
-        (currNum.innerText == total || currNum.innerText == -(total)) ? currNum.innerText = num.innerText : currNum.innerText += num.innerText;
+    } else if (total != 0 && currOperators[0]) {
+        (next == 0 && currNum.innerText == total || currNum.innerText == -(total)) ? nextNumber(num) : currNum.innerText += num.innerText;
     }   
 }
 
