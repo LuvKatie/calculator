@@ -67,26 +67,41 @@ const performMath = {
 }
 
 function operate(currValue) {
-        if (operation.length == 2 && currOperators[0]) {
-            console.log(performMath[currOperators[0]](operation[0], operation[1]));
+        if (total == 0) {
+            total = performMath[currOperators[0]](Number(operation[0]), Number(operation[1]));
+            console.log(total);
             currOperators[0] = currValue.innerText;
             currOp.innerText = currOperators[0];
+            currNum.innerText = '';
+            operation = [];
+        } else if (total > 0 && operation[0]) {
+            total = performMath[currOperators[0]](total, Number(operation[0]));
+            console.log(total);
+            currOperators[0] = currValue.innerText;
+            currOp.innerText = currOperators[0];
+            currNum.innerText = '';
+            operation = [];
         }
 }
 
 function operatorFNC(op) {
     // Store number value and reset display for next number
-        if (!(operation[0])) {
+        if (!(operation[0]) && currNum.innerText !== '' && total == 0) {
             operation.push(currNum.innerText);
             currNum.innerText = '';
         }
+
     // Assign operator to display and also store same operator
         if (currOp.innerText == '' && !(currOperators[0])) {
             currOp.innerText = op.innerText;
             currOperators.push(op.innerText);
-        } else {
+        } else if (operation.length == 0 && total == 0) {
+            operation.push(currNum.innerText);
+        } else if (currNum.innerText !== '') {
             operation.push(currNum.innerText);
             operate(op);
+        } else {
+            return;
         }
 }
 
