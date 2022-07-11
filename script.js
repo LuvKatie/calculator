@@ -70,15 +70,27 @@ function operate(currValue) {
         if (total == 0) {
             total = performMath[currOperators[0]](Number(operation[0]), Number(operation[1]));
             console.log(total);
-            currOperators[0] = currValue.innerText;
-            currOp.innerText = currOperators[0];
+
+            if(currValue.innerText !== '=') {
+                currOp.innerText = currOperators[0];
+            } else {
+                currOperators = [];
+                currOp.innerText = '';
+            }
+
             currNum.innerText = '';
             operation = [];
         } else if (total > 0 && operation[0]) {
             total = performMath[currOperators[0]](total, Number(operation[0]));
             console.log(total);
-            currOperators[0] = currValue.innerText;
-            currOp.innerText = currOperators[0];
+
+            if(currValue.innerText !== '=') {
+                currOp.innerText = currOperators[0];
+            } else {
+                currOperators = [];
+                currOp.innerText = '';
+            }
+
             currNum.innerText = '';
             operation = [];
         }
@@ -114,11 +126,13 @@ function numberCheck(num) {
 function numPopulate(num) {
     if (currNum.innerText == '0') {
         currNum.innerText = num.innerText
-    } else if (!(currOperators[0])) {
+    } else if (!(currOperators[0]) && total == 0) {
         currNum.innerText += num.innerText;
-    } else {
+    } else if (total == 0) {
         currNum.innerText += num.innerText
-    }
+    } else if (total > 0 && currOperators[0]) {
+        currNum.innerText += num.innerText
+    } 
 }
 
 function checkOP(value) {
@@ -126,6 +140,9 @@ function checkOP(value) {
             clear()
         } else if (value.innerText == '<-') {
             backspace();
+        } else if (value.innerText == '=' && currNum.innerText !== '') {
+            operation.push(currNum.innerText);
+            operate(value);
         } else {
             numberNegPos();
         }
