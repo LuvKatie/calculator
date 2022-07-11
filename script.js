@@ -182,7 +182,7 @@ function numberNegPos() {
             return;
         }
         
-        if (total != 0 && currNum.innerText == total) {
+        if (total != 0 && currNum.innerText == total || currNum.innerText == -(total)) {
             if (str.charAt(0) != '-' && str.charAt(0) != 0) {
                 let neg = '-' + str;
                 currNum.innerText = neg;
@@ -201,7 +201,7 @@ function backspace() {
     if (currNum.innerText == 'Nice try; not today!') {
         return;
     }
-    
+
     let currValue = currNum.innerText;
     currNum.innerText = currValue.slice(-currValue.length, -1);
 
