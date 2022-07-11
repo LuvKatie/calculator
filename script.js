@@ -74,18 +74,18 @@ function operateEval(value) {
         currOp.innerText = '';
     }
 
-    currNum.innerText = '';
+    currNum.innerText = total;
     operation = [];
 } 
 
 function operate(currValue) {
-        if (total == 0) {
+        if (total == 0 && operation[1]) {
             total = performMath[currOperators[0]](Number(operation[0]), Number(operation[1]));
             console.log(total);
 
             operateEval(currValue);
 
-        } else if (total > 0 && operation[0]) {
+        } else if (total > 0 || total < 0 && operation[0]) {
             total = performMath[currOperators[0]](total, Number(operation[0]));
             console.log(total);
 
@@ -101,7 +101,10 @@ function operatorFNC(op) {
         }
 
     // Assign operator to display and also store same operator
-        if (currOp.innerText == '' && !(currOperators[0])) {
+        if (currOp.innerText == '' && !(currOperators[0]) && total == 0) {
+            currOp.innerText = op.innerText;
+            currOperators.push(op.innerText);
+        } else if (currOp.innerText == '' && !(currOperators[0]) && total !== 0) {
             currOp.innerText = op.innerText;
             currOperators.push(op.innerText);
         } else if (operation.length == 0 && total == 0) {
@@ -127,8 +130,8 @@ function numPopulate(num) {
         currNum.innerText += num.innerText;
     } else if (total == 0) {
         currNum.innerText += num.innerText
-    } else if (total > 0 && currOperators[0]) {
-        currNum.innerText += num.innerText
+    } else if (total > 0 || total < 0 && currOperators[0]) {
+        (currNum.innerText == total || currNum.innerText == -(total)) ? currNum.innerText = num.innerText : currNum.innerText += num.innerText;
     }   
 }
 
@@ -137,11 +140,13 @@ function checkOP(value) {
             clear()
         } else if (value.innerText == '<-') {
             backspace();
-        } else if (value.innerText == '=' && currNum.innerText !== '') {
+        } else if (value.innerText == '=' && currNum.innerText !== '' && currOperators[0] && total !== 0 || operation[0]) {
             operation.push(currNum.innerText);
             operate(value);
-        } else {
+        } else if (value.innerText == '-/+') {
             numberNegPos();
+        } else {
+            return;
         }
 }
 
@@ -160,12 +165,19 @@ function clear() {
 
 function numberNegPos() {
         let str = currNum.innerText;
-        if (str.charAt(0) != '-') {
-            let neg = '-' + str;
-            currNum.innerText = neg;
-        } else {
-            let pos = str.slice(1);
-            currNum.innerText = pos;
+        
+        if (total != 0 && currNum.innerText == total) {
+            if (str.charAt(0) != '-' && str.charAt(0) != 0) {
+                let neg = '-' + str;
+                currNum.innerText = neg;
+                total = currNum.innerText;
+            } else if (str.charAt(0) != 0) {
+                let pos = str.slice(1);
+                currNum.innerText = pos;
+                total = currNum.innerText;
+            } else {
+                return;
+            }
         }
 }
 
