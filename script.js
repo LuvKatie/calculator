@@ -79,6 +79,11 @@ function operateEval(value) {
 } 
 
 function operate(currValue) {
+        if (operation[0] == 0 && currOperators[0] == '/') {
+            clear();
+            currNum.innerText = 'Nice try; not today!';
+        }
+
         if (total == 0 && operation[1]) {
             total = performMath[currOperators[0]](Number(operation[0]), Number(operation[1]));
             console.log(total);
@@ -94,6 +99,9 @@ function operate(currValue) {
 }
 
 function operatorFNC(op) {
+        if (currNum.innerText == 'Nice try; not today!') {
+            return;
+        }
     // Store number value and reset display for next number
         if (!(operation[0]) && currNum.innerText !== '' && total == 0) {
             operation.push(currNum.innerText);
@@ -124,6 +132,10 @@ function numberCheck(num) {
 
 // Populates number display and continues the operation if an operator was called upon current number
 function numPopulate(num) {
+    if (currNum.innerText == 'Nice try; not today!') {
+        return;
+    }
+
     if (currNum.innerText == '0') {
         currNum.innerText = num.innerText
     } else if (!(currOperators[0]) && total == 0) {
@@ -165,6 +177,10 @@ function clear() {
 
 function numberNegPos() {
         let str = currNum.innerText;
+
+        if (currNum.innerText == 'Nice try; not today!') {
+            return;
+        }
         
         if (total != 0 && currNum.innerText == total) {
             if (str.charAt(0) != '-' && str.charAt(0) != 0) {
@@ -182,6 +198,10 @@ function numberNegPos() {
 }
 
 function backspace() {
+    if (currNum.innerText == 'Nice try; not today!') {
+        return;
+    }
+    
     let currValue = currNum.innerText;
     currNum.innerText = currValue.slice(-currValue.length, -1);
 
