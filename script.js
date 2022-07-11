@@ -86,13 +86,11 @@ function operate(currValue) {
 
         if (total == 0 && operation[1]) {
             total = performMath[currOperators[0]](Number(operation[0]), Number(operation[1]));
-            console.log(total);
 
             operateEval(currValue);
 
         } else if (total > 0 || total < 0 && operation[0]) {
             total = performMath[currOperators[0]](total, Number(operation[0]));
-            console.log(total);
 
             operateEval(currValue);
         }
