@@ -66,33 +66,30 @@ const performMath = {
     '%': (x, y) => x % y,
 }
 
+function operateEval(value) {
+    if(value.innerText !== '=') {
+        currOp.innerText = currOperators[0];
+    } else {
+        currOperators = [];
+        currOp.innerText = '';
+    }
+
+    currNum.innerText = '';
+    operation = [];
+} 
+
 function operate(currValue) {
         if (total == 0) {
             total = performMath[currOperators[0]](Number(operation[0]), Number(operation[1]));
             console.log(total);
 
-            if(currValue.innerText !== '=') {
-                currOp.innerText = currOperators[0];
-            } else {
-                currOperators = [];
-                currOp.innerText = '';
-            }
+            operateEval(currValue);
 
-            currNum.innerText = '';
-            operation = [];
         } else if (total > 0 && operation[0]) {
             total = performMath[currOperators[0]](total, Number(operation[0]));
             console.log(total);
 
-            if(currValue.innerText !== '=') {
-                currOp.innerText = currOperators[0];
-            } else {
-                currOperators = [];
-                currOp.innerText = '';
-            }
-
-            currNum.innerText = '';
-            operation = [];
+            operateEval(currValue);
         }
 }
 
@@ -132,7 +129,7 @@ function numPopulate(num) {
         currNum.innerText += num.innerText
     } else if (total > 0 && currOperators[0]) {
         currNum.innerText += num.innerText
-    } 
+    }   
 }
 
 function checkOP(value) {
@@ -156,6 +153,7 @@ function softClear(value) {
 function clear() {
         operation = [];
         currOperators = [];
+        total = 0;
         currNum.innerText = '0';
         currOp.innerText = '';
 }
