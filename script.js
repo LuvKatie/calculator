@@ -136,6 +136,10 @@ function numPopulate(num) {
         return;
     }
 
+    if (currNum.innerText.includes('.') && num.innerText == '.') {
+        return;
+    }
+
     if (currNum.innerText == '0') {
         currNum.innerText = num.innerText
     } else if (!(currOperators[0]) && total == 0) {
@@ -182,15 +186,19 @@ function numberNegPos() {
             return;
         }
         
-        if (total != 0 && currNum.innerText == total || currNum.innerText == -(total)) {
+        if (total != 0) {
             if (str.charAt(0) != '-' && str.charAt(0) != 0) {
                 let neg = '-' + str;
                 currNum.innerText = neg;
-                total = currNum.innerText;
+                if (currNum.innerText == total || currNum.innerText == -(total)) {
+                    total = currNum.innerText;
+                }
             } else if (str.charAt(0) != 0) {
                 let pos = str.slice(1);
                 currNum.innerText = pos;
-                total = currNum.innerText;
+                if (currNum.innerText == total || currNum.innerText == -(total)) {
+                    total = currNum.innerText;
+                }
             } else {
                 return;
             }
